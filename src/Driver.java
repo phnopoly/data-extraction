@@ -1,17 +1,19 @@
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Driver {
 
+    private static final String FILENAME = "moody_training_data";
 
-    private static FileInputStream file;
-    private static HSSFWorkbook workbook;
-    static HSSFSheet staticData;
-    private static HSSFSheet dynamicData;
+    public static void main(String[] args) {
+        Spreadsheet ss = null;
+        ss = new Spreadsheet(FILENAME);
+        ss.iterateList();
+        System.out.println(ss.toString());
+    }
 
-    public static void main(String[] args){
-
+    private static void initFields() {
     }
 
 }
