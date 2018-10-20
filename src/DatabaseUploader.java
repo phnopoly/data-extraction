@@ -15,7 +15,7 @@ public class DatabaseUploader {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/studentdatabase", "zsaordenio", "Egbert123!");
+                    "jdbc:mysql://localhost:3306/studentdatabase", "zsaordenio", "FILL");
 
         } catch (Exception e) {
             e.printStackTrace();
