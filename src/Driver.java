@@ -16,27 +16,25 @@ public class Driver {
     private static DatabaseUploader dbu;
 
     public static void main(String[] args) {
+
         ss = new Spreadsheet(XLSFILENAME);
         ss.iterateList();
         dbu = new DatabaseUploader();
 
         // execute once - comment when database is loaded
-        /* loadDatabase();
+        // loadDatabase();
         try {
             dbu.getConn().close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        */
-
         // may execute multiple times
 
     }
 
-    private static void loadDatabase(){
+    private static void loadDatabase() {
         for (int i = 0; i < ss.getEntities().size(); i++) {
             Entity e = ss.getEntities().get(i);
-            System.out.println(e);
             try {
                 dbu.executeCommand(
                         e.getId(), e.getScore(),
@@ -48,7 +46,7 @@ public class Driver {
         }
     }
 
-    private static void loadTextfile(){
+    private static void loadTextfile() {
 
     }
 

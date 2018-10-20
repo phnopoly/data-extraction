@@ -15,7 +15,7 @@ public class DatabaseUploader {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/studentdatabase", "zsaordenio", "FILL");
+                    "jdbc:mysql://localhost:3306/studentdatabase", "root", null);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,7 +38,6 @@ public class DatabaseUploader {
         preparedStmt.setString(5, p5);
         preparedStmt.setString(6, p6);
         preparedStmt.execute();
-        System.out.println(p1);
 
         //---------------------------------------------------------------------
         /*
@@ -58,9 +57,7 @@ public class DatabaseUploader {
         return STATEMENT;
     }
 
-    public Connection getConn() {
-        return conn;
-    }
+    public Connection getConn() { return conn; }
 
     public void setConn(Connection conn) {
         this.conn = conn;
