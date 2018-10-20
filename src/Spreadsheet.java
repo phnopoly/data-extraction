@@ -42,6 +42,18 @@ public class Spreadsheet {
         );
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("%10s %10s %10s %10s %10s %10s\n" +
+                        "----------------------------------------------------------------------\n",
+                "ID", "Score", "Grade", "questions", "texting", "late"));
+        for (int i = 0; i < NUMROWS - 1; i++) {
+            stringBuilder.append(entities.get(i));
+        }
+        return stringBuilder.toString();
+    }
+
     public FileInputStream getFile() { return file; }
 
     public void setFile(FileInputStream file) { this.file = file; }
@@ -54,15 +66,9 @@ public class Spreadsheet {
 
     public void setTable(HSSFSheet table) { this.table = table; }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("%10s %10s %10s %10s %10s %10s\n" +
-                        "----------------------------------------------------------------------\n",
-                "ID", "Score", "Grade", "questions", "texting", "late"));
-        for (int i = 0; i < NUMROWS - 1; i++) {
-            stringBuilder.append(entities.get(i));
-        }
-        return stringBuilder.toString();
-    }
+    public List<Entity> getEntities() { return entities; }
+
+    public void setEntities(List<Entity> entities) { this.entities = entities; }
+
+    public int getNUMROWS() { return NUMROWS; }
 }

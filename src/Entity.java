@@ -26,4 +26,51 @@ public class Entity {
     }
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public char getGrade() {
+        return grade;
+    }
+
+    public void setGrade(char grade) {
+        this.grade = grade;
+    }
+
+    public String getAskQuestions() {
+        return askQuestions;
+    }
+
+    public void setAskQuestions(String askQuestions) {
+        this.askQuestions = askQuestions;
+    }
+
+    public String getTextingInClass() {
+        return textingInClass;
+    }
+
+    public void setTextingInClass(String textingInClass) {
+        this.textingInClass = textingInClass;
+    }
+
+    public String getLateInClass() {
+        return lateInClass;
+    }
+
+    public void setLateInClass(String lateInClass) {
+        this.lateInClass = lateInClass;
+    }
 }
