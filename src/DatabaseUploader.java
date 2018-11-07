@@ -26,6 +26,7 @@ public class DatabaseUploader {
         //here sonoo is database name, root is username and password
 
         // the mysql insert statement
+        // *Query has changed due to change in data
         String query = " insert into macros (id, score, grade, askQuestions, textingInClass, lateInClass)"
                 + " values (?, ?, ?, ?, ?, ?)";
 

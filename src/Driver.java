@@ -1,54 +1,36 @@
 import javax.xml.crypto.Data;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 // Task:
-// xls -> java
-// java -> database
-// database - > textfile
+// xls -> String
+// String -> textfile
 public class Driver {
 
-    private static final String XLSFILENAME = "moody_training_data";
-    private static final String TXTFILENAME = "raw_data";
+    private static final String XLSFILENAME = "car_accident_data";
+    private static final String TXTFILENAME = "extractedData";
     private static Spreadsheet ss;
-    private static DatabaseUploader dbu;
 
     public static void main(String[] args) {
-
         ss = new Spreadsheet(XLSFILENAME);
-        ss.iterateList();
-        dbu = new DatabaseUploader();
-
-        // execute once - comment when database is loaded
-        // loadDatabase();
         try {
-            dbu.getConn().close();
-        } catch (SQLException e) {
+            loadTextfile(ss.iterateTable());
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        // may execute multiple times
-
+        // execute once - comment when database is loaded
+        // loadDatabase();
     }
 
-    private static void loadDatabase() {
-        for (int i = 0; i < ss.getEntities().size(); i++) {
-            Entity e = ss.getEntities().get(i);
-            try {
-                dbu.executeCommand(
-                        e.getId(), e.getScore(),
-                        (new Character(e.getGrade())).toString(),
-                        e.getAskQuestions(), e.getTextingInClass(), e.getLateInClass());
-            } catch (SQLException exc) {
-                exc.printStackTrace();
-            }
-        }
+    private static void loadTextfile(String contents) throws IOException {
+        BufferedWriter writer =
+                new BufferedWriter(new FileWriter(TXTFILENAME + ".txt"));
+        writer.write(contents);
+        writer.close();
     }
-
-    private static void loadTextfile() {
-
-    }
-
 
 }

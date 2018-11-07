@@ -11,8 +11,7 @@ public class Spreadsheet {
     private FileInputStream file;
     private HSSFWorkbook workbook;
     private HSSFSheet table;
-    private final int NUMROWS = 999;
-    private List<Entity> entities;
+    private final int NUMROWS = 50000;
 
     public Spreadsheet(String fileName) {
         try {
@@ -22,37 +21,50 @@ public class Spreadsheet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        entities = new ArrayList<>();
     }
 
-    public void iterateList() {
+    public String iterateTable() {
+        StringBuilder sB = new StringBuilder();
         for (int i = 1; i < NUMROWS; i++) {
-            entities.add(createEntity(i));
+            // System.out.println(getStringContents(i));
+            sB.append(getStringContents(i));
+            sB.append("\n");
         }
+        return sB.toString();
     }
 
-    private Entity createEntity(int index) {
-        return new Entity(
-                (int) Double.parseDouble(table.getRow(index).getCell(0).toString()), //id
-                Double.parseDouble(table.getRow(index).getCell(1).toString()), //score
-                table.getRow(index).getCell(2).toString().charAt(0), //grade
-                table.getRow(index).getCell(3).toString(), //askQuestions
-                table.getRow(index).getCell(4).toString(), //textingInClass
-                table.getRow(index).getCell(5).toString()  //LateInClass
-        );
+    private String getStringContents(int index) {
+        StringBuilder sB = new StringBuilder();
+        sB.append(table.getRow(index).getCell(0).toString()); //accidentindex
+        sB.append(" ");
+        sB.append(table.getRow(index).getCell(14).toString()); //sexOfDriver
+        sB.append(" ");
+        sB.append(table.getRow(index).getCell(15).toString()); //ageOfDriver
+        sB.append(" ");
+        sB.append(table.getRow(index).getCell(19).toString()); //ageOfVehicle
+        sB.append(" ");
+        sB.append(table.getRow(index).getCell(30).toString()); //accidentSeverity,
+        sB.append(" ");
+        sB.append(table.getRow(index).getCell(41).toString()); //speedLimit
+        sB.append(" ");
+        sB.append(table.getRow(index).getCell(54).toString());  //didPoliceOfficerAttendSceneOfAccident
+        return sB.toString();
     }
 
     @Override
+    // accidentIndex, sexOfDriver, ageOfDriver, ageOfVehicle, accidentSeverity, speedLimit
+    // didPoliceOfficerAttendSceneOfAccident
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("%10s %10s %10s %10s %10s %10s\n" +
+        stringBuilder.append(String.format("%15s %15s %15s %15s %15s %15s %30s\n" +
                         "----------------------------------------------------------------------\n",
-                "ID", "Score", "Grade", "questions", "texting", "late"));
-        for (int i = 0; i < NUMROWS - 1; i++) {
-            stringBuilder.append(entities.get(i));
-        }
+                "accidentIndex", "sexOfDriver", "ageOfDriver", "ageOfVehicle",
+                "accidentSeverity", "speedLimit", "didPoliceOfficerAttendSceneOfAccident"));
+        for (int i = 0; i < NUMROWS - 1; i++)
+            stringBuilder.append(getStringContents(i));
         return stringBuilder.toString();
     }
+
 
     public FileInputStream getFile() { return file; }
 
@@ -65,10 +77,6 @@ public class Spreadsheet {
     public HSSFSheet getTable() { return table; }
 
     public void setTable(HSSFSheet table) { this.table = table; }
-
-    public List<Entity> getEntities() { return entities; }
-
-    public void setEntities(List<Entity> entities) { this.entities = entities; }
 
     public int getNUMROWS() { return NUMROWS; }
 }
