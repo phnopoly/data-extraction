@@ -22,6 +22,7 @@ public class Driver {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // System.out.println(ss.toString());
         // execute once - comment when database is loaded
         // loadDatabase();
     }

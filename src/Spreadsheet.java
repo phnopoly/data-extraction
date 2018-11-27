@@ -11,7 +11,7 @@ public class Spreadsheet {
     private FileInputStream file;
     private HSSFWorkbook workbook;
     private HSSFSheet table;
-    private final int NUMROWS = 50000;
+    private final int NUMROWS = 65536;
 
     public Spreadsheet(String fileName) {
         try {
@@ -35,36 +35,40 @@ public class Spreadsheet {
 
     private String getStringContents(int index) {
         StringBuilder sB = new StringBuilder();
-        sB.append(table.getRow(index).getCell(0).toString()); //accidentindex
+        sB.append(table.getRow(index).getCell(0).toString()); //accidentIndex
         sB.append(" ");
-        sB.append(table.getRow(index).getCell(14).toString()); //sexOfDriver
+        sB.append((int)Double.parseDouble(table.getRow(index).getCell(14).toString())); //sexOfDriver
         sB.append(" ");
-        sB.append(table.getRow(index).getCell(15).toString()); //ageOfDriver
+        sB.append((int)Double.parseDouble(table.getRow(index).getCell(49).toString())); //weatherConditions
         sB.append(" ");
-        sB.append(table.getRow(index).getCell(19).toString()); //ageOfVehicle
+        sB.append((int)Double.parseDouble(table.getRow(index).getCell(50).toString())); //roadSurface
         sB.append(" ");
-        sB.append(table.getRow(index).getCell(30).toString()); //accidentSeverity,
+        sB.append((int)Double.parseDouble(table.getRow(index).getCell(41).toString())); //speedLimit
         sB.append(" ");
-        sB.append(table.getRow(index).getCell(41).toString()); //speedLimit
+        sB.append((int)Double.parseDouble(table.getRow(index).getCell(30).toString())); //accidentSeverity,
         sB.append(" ");
-        sB.append(table.getRow(index).getCell(54).toString());  //didPoliceOfficerAttendSceneOfAccident
+        sB.append((int)Double.parseDouble(table.getRow(index).getCell(31).toString())); //numberOfVehicles
+        sB.append(" ");
+        sB.append(table.getRow(index).getCell(54).toString().equals("2.0")? "0": "1");
+        //policeInvolvement 0 - no. 1 - yes
         return sB.toString();
     }
 
     @Override
-    // accidentIndex, sexOfDriver, ageOfDriver, ageOfVehicle, accidentSeverity, speedLimit
-    // didPoliceOfficerAttendSceneOfAccident
+    // accidentIndex, sexOfDriver, weatherCond., roadSurface,
+    // speedLimit, severity, numVehicles, policeInvolve.
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("%15s %15s %15s %15s %15s %15s %30s\n" +
+        stringBuilder.append(String.format("%15s %15s %15s %15s %15s %15s %15s %15s\n" +
                         "----------------------------------------------------------------------\n",
-                "accidentIndex", "sexOfDriver", "ageOfDriver", "ageOfVehicle",
-                "accidentSeverity", "speedLimit", "didPoliceOfficerAttendSceneOfAccident"));
-        for (int i = 0; i < NUMROWS - 1; i++)
+                "accidentIndex", "sexOfDriver", "weatherCond.", "roadSurface",
+                "speedLimit", "severity", "numVehicles","policeInvolve."));
+        for (int i = 1; i < NUMROWS - 1; i++) {
             stringBuilder.append(getStringContents(i));
+            stringBuilder.append("\n");
+        }
         return stringBuilder.toString();
     }
-
 
     public FileInputStream getFile() { return file; }
 
